@@ -1,0 +1,63 @@
+{
+  "annotations": {"list":[]},
+  "panels": [
+    {
+      "type": "graph",
+      "title": "CPU Usage %",
+      "targets": [
+        {
+          "expr": "100 - (avg by (instance) (irate(node_cpu_seconds_total{mode=\"idle\"}[5m])) * 100)",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {"x":0,"y":0,"w":12,"h":6},
+      "id": 1
+    },
+    {
+      "type": "graph",
+      "title": "Memory Used %",
+      "targets": [
+        {
+          "expr": "(1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {"x":12,"y":0,"w":12,"h":6},
+      "id": 2
+    },
+    {
+      "type": "graph",
+      "title": "Disk Free % (root)",
+      "targets": [
+        {
+          "expr": "(node_filesystem_avail_bytes{mountpoint=\"/\"} / node_filesystem_size_bytes{mountpoint=\"/\"}) * 100",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {"x":0,"y":6,"w":12,"h":6},
+      "id": 3
+    },
+    {
+      "type": "graph",
+      "title": "Network Rx/Tx Mbps",
+      "targets": [
+        {
+          "expr": "rate(node_network_receive_bytes_total[5m]) * 8 / 1e6",
+          "legendFormat": "RX",
+          "refId": "A"
+        },
+        {
+          "expr": "rate(node_network_transmit_bytes_total[5m]) * 8 / 1e6",
+          "legendFormat": "TX",
+          "refId": "B"
+        }
+      ],
+      "gridPos": {"x":12,"y":6,"w":12,"h":6},
+      "id": 4
+    }
+  ],
+  "title": "Simple Host Metrics",
+  "schemaVersion": 16,
+  "version": 1,
+  "refresh": "15s"
+}
